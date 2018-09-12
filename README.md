@@ -1,2 +1,2 @@
-# Go-Apiify
-A Go library for generating event-based API endpoints.
+# Go-Rpcify
+A Go library for generating event-based RPC endpoints.
