@@ -31,8 +31,8 @@ func NewCall(method func(), endpoint string) (*Call, error) {
 
 	methodHash := common.SHA3String(byteValue) // Calculate method hash
 
-	if endpoint == "" {
-		endpoint = common.RootCallEndpoint + "/" + methodHash
+	if endpoint == "" { // Check for nil endpoint
+		endpoint = common.RootCallEndpoint + "/" + methodHash // Set endpoint
 	}
 
 	call := Call{method, methodHash, endpoint} // Init call
