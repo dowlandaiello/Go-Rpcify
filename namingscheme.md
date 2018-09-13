@@ -13,6 +13,12 @@ Struct type name reference outlined in, "Type References," followed by the camel
 envStack := newStack()
 ```
 
+## Call Endpoints
+
+Short code reference: "/call/${callMethodHash or provided endpoint}"
+
+Standard reference: "localhost:8080/call/${callMethodHash or provided endpoint}"
+
 ## Comments
 
 Heading, body separated by, " - ."
