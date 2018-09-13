@@ -4,9 +4,10 @@ import "testing"
 
 /* BEGIN INTERNAL METHODS */
 
-// callTestMethod
+// callTestMethod - method for testing calls
+
 func callTestMethod() {
-	print("test")
+	print("-- CALL -- test") // Log success
 }
 
 /* END INTERNAL METHODS */
@@ -23,6 +24,26 @@ func TestNewCall(t *testing.T) {
 	}
 
 	t.Logf("initialized call %s successfully", call.MethodHash) // Log success
+}
+
+// TestRunCall - test functionality of call run method
+func TestRunCall(t *testing.T) {
+	call, err := NewCall(callTestMethod, "") // Init call
+
+	if err != nil { // Check for errors
+		t.Errorf(err.Error()) // Log found error
+		t.FailNow()           // Panic
+	}
+
+	t.Logf("initialized call %s successfully", call.MethodHash) // Log success
+
+	err = call.Run() // Attempt to run call
+
+	if err != nil { // Check for errors
+		t.Errorf(err.Error()) // Log found error
+	}
+
+	t.Logf("ran call %s successfully", call.MethodHash)
 }
 
 /* END EXPORTED METHODS */
