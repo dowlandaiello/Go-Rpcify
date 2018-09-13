@@ -2,14 +2,14 @@ package types
 
 // Environment - stack-based container capable of holding memory-only runtime values
 type Environment struct {
-	stack *Stack // Fetch reference to
+	Stacks []*Stack `json:"stacks"` // Fetch reference to Environment stacks
 }
 
 // NewEnvironment - initialize and return new instance of Environment struct
 func NewEnvironment() *Environment { // TODO: finished initializer
-	envStack := NewStack() // Initialize stack
+	envStack := NewStack() // Initialize default stack
 
-	env := Environment{stack: envStack} // Init new environment
+	env := Environment{[]*Stack{envStack}} // Init new environment
 
 	return &env // Return initialized instance
 }
