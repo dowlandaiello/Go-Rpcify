@@ -8,6 +8,11 @@ import (
 	"golang.org/x/crypto/sha3"
 )
 
+const (
+	// RootCallEndpoint - global const defining the base endpoint for calls
+	RootCallEndpoint = "/call"
+)
+
 /* BEGIN EXPORTED METHODS */
 
 /*
@@ -33,7 +38,7 @@ func SHA3Bytes(b []byte) []byte {
 */
 
 /*
-	BEGIN CONVERSION METHODS
+	BEGIN CONVERSION METHODS:
 */
 
 // ToBytes - attempt to encode specified interface to byte array

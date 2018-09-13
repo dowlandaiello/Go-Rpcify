@@ -15,6 +15,8 @@ type Call struct {
 	Endpoint string `json:"endpoint"` // Used for calls to rpc
 }
 
+/* BEGIN EXPORTED METHODS */
+
 // NewCall - initialize new instance of Call struct
 func NewCall(method func(), endpoint string) (*Call, error) {
 	if reflect.ValueOf(method).IsNil() { // Check for nil method
@@ -29,12 +31,20 @@ func NewCall(method func(), endpoint string) (*Call, error) {
 
 	methodHash := common.SHA3String(byteValue) // Calculate method hash
 
+	if endpoint == "" {
+		endpoint = common.RootCallEndpoint + "/" + methodHash
+	}
+
 	call := Call{method, methodHash, endpoint} // Init call
 
 	return &call, nil // Return initialized call instance
 }
 
 // Run - attempt to run specified call
-func (*Call) Run() error {
+func (call *Call) Run() error {
+	call.Method() // Run method
+
 	return nil // No error occurred, return nil
 }
+
+/* END EXPORTED METHODS */
