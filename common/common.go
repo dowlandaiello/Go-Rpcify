@@ -1,7 +1,9 @@
 package common
 
 import (
+	"bytes"
 	"encoding/base64"
+	"encoding/gob"
 
 	"golang.org/x/crypto/sha3"
 )
@@ -28,6 +30,29 @@ func SHA3Bytes(b []byte) []byte {
 
 /*
 	END CRYPTO METHODS
+*/
+
+/*
+	BEGIN CONVERSION METHODS
+*/
+
+// ToBytes - attempt to encode specified interface to byte array
+func ToBytes(object interface{}) ([]byte, error) {
+	var buf bytes.Buffer // Init buffer
+
+	encoder := gob.NewEncoder(&buf) // Init encoder
+
+	err := encoder.Encode(object) // Attempt to encode
+
+	if err != nil { // Check for errors
+		return nil, err // Return found error
+	}
+
+	return buf.Bytes(), nil // No error occurred, return byte value
+}
+
+/*
+	END CONVERSION METHODS
 */
 
 /* END EXPORTED METHODS */
