@@ -5,6 +5,10 @@ import (
 	"testing"
 )
 
+/*
+	BEGIN CRYPTO UNIT TESTING METHODS
+*/
+
 // TestSHA3String - test functionality of SHA3String method
 func TestSHA3String(t *testing.T) {
 	test := SHA3String([]byte("test")) // Hash test string
@@ -28,3 +32,27 @@ func TestSHA3Bytes(t *testing.T) {
 
 	t.Logf("found hash %b", test) // Log success
 }
+
+/*
+	END CRYPTO UNIT TESTING METHODS
+*/
+
+/*
+	BEGIN CONVERSION UNIT TESTING METHODS
+*/
+
+// TestToBytes - test functionality of ToBytes method
+func TestToBytes(t *testing.T) {
+	test, err := ToBytes("test") // Test ToBytes
+
+	if err != nil { // Check for error
+		t.Errorf(err.Error()) // Log found error
+		t.FailNow()           // Panic
+	}
+
+	t.Logf("found byte value %b", test) // Log success
+}
+
+/*
+	END CONVERSION UNIT TESTING METHODS
+*/
