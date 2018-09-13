@@ -23,19 +23,21 @@ func NewCall(method func(), endpoint string) (*Call, error) {
 		return &Call{}, errors.New("nil call") // Return error
 	}
 
-	byteValue, err := common.ToBytes(method) // Attempt to encode
+	methodHash := ""
+
+	call := Call{method, methodHash, endpoint} // Init call
+
+	byteValue, err := common.ToBytes(call) // Attempt to encode
 
 	if err != nil { // Check for errors
 		return nil, err // Return found error
 	}
 
-	methodHash := common.SHA3String(byteValue) // Calculate method hash
+	call.MethodHash = common.SHA3String(byteValue) // Calculate method hash
 
-	if endpoint == "" { // Check for nil endpoint
-		endpoint = common.RootCallEndpoint + "/" + methodHash // Set endpoint
+	if call.Endpoint == "" { // Check for nil endpoint
+		call.Endpoint = common.RootCallEndpoint + "/" + call.MethodHash // Set endpoint
 	}
-
-	call := Call{method, methodHash, endpoint} // Init call
 
 	return &call, nil // Return initialized call instance
 }
