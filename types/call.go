@@ -9,12 +9,14 @@ import (
 
 // Call - call to specified method
 type Call struct {
-	method     func()
-	methodHash string
+	Method     func() `json:"method"` // Used to call method
+	MethodHash string `json:"hash"`   // Used to identify call
+
+	Endpoint string `json:"endpoint"` // Used for calls to rpc
 }
 
 // NewCall - initialize new instance of Call struct
-func NewCall(method func()) (*Call, error) {
+func NewCall(method func(), endpoint string) (*Call, error) {
 	if reflect.ValueOf(method).IsNil() { // Check for nil method
 		return &Call{}, errors.New("nil call") // Return error
 	}
@@ -25,9 +27,9 @@ func NewCall(method func()) (*Call, error) {
 		return nil, err // Return found error
 	}
 
-	methodHash := common.SHA3String(byteValue)
+	methodHash := common.SHA3String(byteValue) // Calculate method hash
 
-	call := Call{method, methodHash} // Init call
+	call := Call{method, methodHash, endpoint} // Init call
 
 	return &call, nil // Return initialized call instance
 }
