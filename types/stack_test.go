@@ -45,9 +45,10 @@ func TestStackAddCall(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
-	t.Logf("added call %v successfully", call)
+	t.Logf("added call %v successfully", call) // Log success
 }
 
+// TestRunStack - test functionality of stack Run method
 func TestRunStack(t *testing.T) {
 	stack := NewStack() // Initialize stack
 
@@ -63,6 +64,8 @@ func TestRunStack(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
+	stack.AddCall(call)
+
 	err = stack.AddCall(call) // Attempt to add call
 
 	if err != nil { // Check for errors
@@ -77,7 +80,7 @@ func TestRunStack(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
-	t.Logf("ran stack %v successfully", stack)
+	t.Logf("ran stack %v successfully", stack) // Log success
 }
 
 /* END EXPORTED METHODS */

@@ -6,7 +6,7 @@ import "testing"
 
 // callTestMethod - method for testing calls
 func callTestMethod() {
-	print("-- CALL -- test") // Log success
+	print("-- CALL -- test\n") // Log success
 }
 
 /* END INTERNAL METHODS */
