@@ -1,6 +1,11 @@
 package types
 
-import "github.com/mitsukomegumi/Go-Rpcify/types"
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/mitsukomegumi/Go-Rpcify/types"
+)
 
 // Server - networking type used for rpc server
 type Server struct {
@@ -15,4 +20,9 @@ func NewServer(endpoint string) *Server {
 	server := Server{endpoint, env} // Initialize server
 
 	return &server // Return initialized server
+}
+
+// HandleRequest - attempt to handle request
+func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) { // TODO: finish handler
+	fmt.Fprintf(w, "", r.URL.Path[1:])
 }

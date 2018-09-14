@@ -7,14 +7,15 @@ import (
 
 // Stack - struct used for referencing/running multiple calls at once
 type Stack struct {
-	Calls []*Call `json:"calls"` // Used for referencing and running Stack calls
+	Calls    []*Call `json:"calls"`    // Used for referencing and running Stack calls
+	Endpoint string  `json:"endpoint"` // Used for http call references
 }
 
 /* BEGIN EXPORTED METHODS */
 
 // NewStack - initialize new instance of Stack type
-func NewStack() *Stack {
-	return &Stack{} // Return initialized Stack
+func NewStack(endpoint string) *Stack {
+	return &Stack{[]*Call{}, endpoint} // Return initialized Stack
 }
 
 // AddCall - attempt to append call to stack

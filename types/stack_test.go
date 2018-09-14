@@ -10,9 +10,9 @@ import (
 
 // TestNewStack - test functionality of stack initializer
 func TestNewStack(t *testing.T) {
-	stack := NewStack() // Initialize stack
+	stack := NewStack("test") // Initialize stack
 
-	if reflect.ValueOf(stack).IsNil() {
+	if reflect.ValueOf(stack).IsNil() { // Check for nil stack
 		t.Errorf(errors.New("nil stack").Error()) // Log found error
 		t.FailNow()                               // Panic
 	}
@@ -22,9 +22,9 @@ func TestNewStack(t *testing.T) {
 
 // TestStackAddCall - test functionality of addcall stack method
 func TestStackAddCall(t *testing.T) {
-	stack := NewStack() // Initialize stack
+	stack := NewStack("test") // Initialize stack
 
-	if reflect.ValueOf(stack).IsNil() {
+	if reflect.ValueOf(stack).IsNil() { // Check for nil stack
 		t.Errorf(errors.New("nil stack").Error()) // Log found error
 		t.FailNow()                               // Panic
 	}
@@ -50,9 +50,9 @@ func TestStackAddCall(t *testing.T) {
 
 // TestRunStack - test functionality of stack Run method
 func TestRunStack(t *testing.T) {
-	stack := NewStack() // Initialize stack
+	stack := NewStack("test") // Initialize stack
 
-	if reflect.ValueOf(stack).IsNil() {
+	if reflect.ValueOf(stack).IsNil() { // Check for nil stack
 		t.Errorf(errors.New("nil stack").Error()) // Log found error
 		t.FailNow()                               // Panic
 	}
@@ -64,7 +64,7 @@ func TestRunStack(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
-	stack.AddCall(call)
+	stack.AddCall(call) // Add call to stack
 
 	err = stack.AddCall(call) // Attempt to add call
 

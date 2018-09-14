@@ -10,7 +10,7 @@ import (
 
 // TestNewEnvironment - test functionality of environment initializer
 func TestNewEnvironment(t *testing.T) {
-	env := NewEnvironment() // Initialize new environment
+	env := NewEnvironment("test") // Initialize new environment
 
 	if reflect.ValueOf(env).IsNil() {
 		t.Errorf(errors.New("nil environment").Error()) // Log found error
@@ -22,7 +22,7 @@ func TestNewEnvironment(t *testing.T) {
 
 // TestAddStack - test functionality of AddStack method
 func TestAddStack(t *testing.T) {
-	env := NewEnvironment() // Initialize new environment
+	env := NewEnvironment("test") // Initialize new environment
 
 	if reflect.ValueOf(env).IsNil() { // Check for nil env
 		t.Errorf(errors.New("nil environment").Error()) // Log found error
@@ -36,7 +36,7 @@ func TestAddStack(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
-	stack := NewStack() // Initialize stack
+	stack := NewStack("test") // Initialize stack
 
 	err = stack.AddCall(call) // Add call
 
@@ -57,7 +57,7 @@ func TestAddStack(t *testing.T) {
 
 // TestAddCall - test functionality of AddCall method
 func TestAddCall(t *testing.T) {
-	env := NewEnvironment() // Initialize new environment
+	env := NewEnvironment("test") // Initialize new environment
 
 	if reflect.ValueOf(env).IsNil() { // Check for nil env
 		t.Errorf(errors.New("nil environment").Error()) // Log found error
