@@ -44,6 +44,26 @@ func (env *Environment) AddCall(call *Call) error {
 	return nil // No error occurred, return nil
 }
 
-// TODO: add call/stack searching
+// SearchCallEndpoint - query for endpoint in environment calls
+func (env *Environment) SearchCallEndpoint(endpoint string) (*Call, error) {
+	for x := 0; x != len(env.Calls); x++ { // Check for out of bounds
+		if env.Calls[x].Endpoint == endpoint { // Check for matching endpoint
+			return env.Calls[x], nil // Return call
+		}
+	}
+
+	return &Call{}, errors.New("call endpoint not in environment") // No stack found return nil call
+}
+
+// SearchStackEndpoints - query for endpoint in environment stacks
+func (env *Environment) SearchStackEndpoints(endpoint string) (*Stack, error) {
+	for x := 0; x != len(env.Stacks); x++ { // Check for out of bounds
+		if env.Stacks[x].Endpoint == endpoint { // Check for matching endpoint
+			return env.Stacks[x], nil // Return call
+		}
+	}
+
+	return &Stack{}, errors.New("stack endpoint not in environment") // No stack was found, return nil stack
+}
 
 /* END EXPORTED METHODS */
