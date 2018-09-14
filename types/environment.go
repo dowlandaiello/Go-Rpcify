@@ -11,6 +11,8 @@ type Environment struct {
 	Calls  []*Call  `json:"calls"`  // Used for storing single-reference calls (not in stacks)
 }
 
+/* BEGIN EXPORTED METHODS */
+
 // NewEnvironment - initialize and return new instance of Environment struct
 func NewEnvironment() *Environment { // TODO: finished initializer
 	envStack := NewStack() // Initialize default stack
@@ -41,3 +43,5 @@ func (env *Environment) AddCall(call *Call) error {
 
 	return nil // No error occurred, return nil
 }
+
+/* END EXPORTED METHODS */
