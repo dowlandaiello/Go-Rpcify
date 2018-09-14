@@ -5,7 +5,6 @@ import "testing"
 /* BEGIN INTERNAL METHODS */
 
 // callTestMethod - method for testing calls
-
 func callTestMethod() {
 	print("-- CALL -- test") // Log success
 }
@@ -43,7 +42,7 @@ func TestRunCall(t *testing.T) {
 		t.Errorf(err.Error()) // Log found error
 	}
 
-	t.Logf("ran call %s successfully", call.MethodHash)
+	t.Logf("ran call %s successfully", call.MethodHash) // Log success
 }
 
 /* END EXPORTED METHODS */
