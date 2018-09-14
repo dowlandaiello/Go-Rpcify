@@ -48,4 +48,36 @@ func TestStackAddCall(t *testing.T) {
 	t.Logf("added call %v successfully", call)
 }
 
+func TestRunStack(t *testing.T) {
+	stack := NewStack() // Initialize stack
+
+	if reflect.ValueOf(stack).IsNil() {
+		t.Errorf(errors.New("nil stack").Error()) // Log found error
+		t.FailNow()                               // Panic
+	}
+
+	call, err := NewCall(callTestMethod, "") // Init call
+
+	if err != nil { // Check for errors
+		t.Errorf(err.Error()) // Log found error
+		t.FailNow()           // Panic
+	}
+
+	err = stack.AddCall(call) // Attempt to add call
+
+	if err != nil { // Check for errors
+		t.Errorf(err.Error()) // Log found error
+		t.FailNow()           // Panic
+	}
+
+	err = stack.Run() // Attempt to run stack
+
+	if err != nil { // Check for errors
+		t.Errorf(err.Error()) // Log found error
+		t.FailNow()           // Panic
+	}
+
+	t.Logf("ran stack %v successfully", stack)
+}
+
 /* END EXPORTED METHODS */
