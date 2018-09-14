@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/gob"
+	"strings"
 
 	"golang.org/x/crypto/sha3"
 )
@@ -24,6 +25,13 @@ func SHA3String(b []byte) string {
 	hash := sha3.Sum256(b) // Calculate hash
 
 	return base64.StdEncoding.EncodeToString(hash[:]) // Return base64 string
+}
+
+// SHA3URLSafeString - generate and return SHA3 string-value hash of specified byte array
+func SHA3URLSafeString(b []byte) string {
+	hash := sha3.Sum256(b) // Calculate hash
+
+	return strings.Split(base64.StdEncoding.EncodeToString(hash[:]), "/")[0] // Return base64 string
 }
 
 // SHA3Bytes - generate and return SHA3 hash of specified byte array

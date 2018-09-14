@@ -2,6 +2,7 @@ package common
 
 import (
 	"errors"
+	"strings"
 	"testing"
 )
 
@@ -14,6 +15,18 @@ func TestSHA3String(t *testing.T) {
 	test := SHA3String([]byte("test")) // Hash test string
 
 	if test != "NvAoWAuwLMgnKpoCD0IA40bidq5mTkXugHRVdOL1q4A=" { // Check for matching hash
+		t.Errorf(errors.New("invalid hash").Error()) // Log found error
+		t.FailNow()                                  // Panic
+	}
+
+	t.Logf("found hash %s", test) // Log success
+}
+
+// TestSHA3URLSafeString - test functionality of SHA3URLSafeString method
+func TestSHA3URLSafeString(t *testing.T) {
+	test := SHA3URLSafeString([]byte("test/")) // Hash test string
+
+	if strings.Contains(test, "/") { // Check for matching hash
 		t.Errorf(errors.New("invalid hash").Error()) // Log found error
 		t.FailNow()                                  // Panic
 	}
