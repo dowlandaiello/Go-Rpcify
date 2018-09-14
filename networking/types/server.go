@@ -1,8 +1,10 @@
 package types
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 
 	"github.com/mitsukomegumi/Go-Rpcify/types"
 )
@@ -15,11 +17,20 @@ type Server struct {
 
 // NewServer - initialize new instance of Server struct
 func NewServer(endpoint string) *Server {
-	env := types.NewEnvironment() // Initialize environment
+	env := types.NewEnvironment(endpoint) // Initialize environment
 
 	server := Server{endpoint, env} // Initialize server
 
 	return &server // Return initialized server
+}
+
+// StartServer - start serving requests to server
+func (server *Server) StartServer() error { // TODO: finished server start method
+	if reflect.ValueOf(server).IsNil() { // Check for nil server
+		return errors.New("nil server") // Return found error
+	}
+
+	return nil // No error occurred, return nil
 }
 
 // HandleRequest - attempt to handle request

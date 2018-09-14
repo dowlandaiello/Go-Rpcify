@@ -10,8 +10,8 @@ import (
 
 // Call - call to specified method
 type Call struct {
-	Method     func() `json:"method"` // Used to call method
-	MethodHash string `json:"hash"`   // Used to identify call
+	Method     func() (string, error) `json:"method"` // Used to call method
+	MethodHash string                 `json:"hash"`   // Used to identify call
 
 	Endpoint string `json:"endpoint"` // Used for calls to rpc
 }
@@ -19,7 +19,7 @@ type Call struct {
 /* BEGIN EXPORTED METHODS */
 
 // NewCall - initialize new instance of Call struct
-func NewCall(method func(), endpoint string) (*Call, error) {
+func NewCall(method func() (string, error), endpoint string) (*Call, error) {
 	if reflect.ValueOf(method).IsNil() { // Check for nil method
 		return &Call{}, errors.New("nil call") // Return error
 	}

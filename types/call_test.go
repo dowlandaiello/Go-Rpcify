@@ -5,8 +5,10 @@ import "testing"
 /* BEGIN INTERNAL METHODS */
 
 // callTestMethod - method for testing calls
-func callTestMethod() {
+func callTestMethod() (string, error) {
 	print("-- CALL -- test\n") // Log success
+
+	return "-- CALL -- test", nil // No error occurred, return nil
 }
 
 /* END INTERNAL METHODS */
