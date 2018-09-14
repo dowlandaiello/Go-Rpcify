@@ -2,6 +2,7 @@ package types
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 
 	"github.com/mitsukomegumi/Go-Rpcify/common"
@@ -27,13 +28,13 @@ func NewCall(method func(), endpoint string) (*Call, error) {
 
 	call := Call{method, methodHash, endpoint} // Init call
 
-	byteValue, err := common.ToBytes(call) // Attempt to encode
+	byteValue, err := common.ToBytes(fmt.Sprintf("%v", call)) // Attempt to encode
 
 	if err != nil { // Check for errors
 		return nil, err // Return found error
 	}
 
-	call.MethodHash = common.SHA3String(byteValue) // Calculate method hash
+	call.MethodHash = common.SHA3URLSafeString(byteValue) // Calculate method hash
 
 	if call.Endpoint == "" { // Check for nil endpoint
 		call.Endpoint = common.RootCallEndpoint + "/" + call.MethodHash // Set endpoint
