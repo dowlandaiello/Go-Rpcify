@@ -30,6 +30,10 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 		return errors.New("nil server") // Return found error
 	}
 
+	http.HandleFunc("/", server.HandleRequest) // Handle request
+
+	http.ListenAndServe(":8080", nil) // Serve requests
+
 	return nil // No error occurred, return nil
 }
 
@@ -37,7 +41,7 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 	call, err := server.Environment.SearchCallEndpoints(r.URL.Path[1:]) // Query call
 
-	if err != nil { // Check for error
+	if err != nil { // Check for errors
 		stack, err := server.Environment.SearchStackEndpoints(r.URL.Path[1:]) // Query stack
 
 		if err != nil { // Check for errors
@@ -50,10 +54,22 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (server *Server) handleCall(call *types.Call, w http.ResponseWriter, r *http.Request) { // TODO: finish handler
+func (server *Server) handleCall(call *types.Call, w http.ResponseWriter, r *http.Request) {
+	output, err := call.Run() // Run call
 
+	if err != nil { // Check for errors
+		fmt.Fprintf(w, err.Error()) // Log error
+	} else {
+		fmt.Fprintf(w, output) // Log success
+	}
 }
 
-func (server *Server) handleStack(stack *types.Stack, w http.ResponseWriter, r *http.Request) { // TODO: finish handler
+func (server *Server) handleStack(stack *types.Stack, w http.ResponseWriter, r *http.Request) {
+	output, err := stack.Run() // Run stack
 
+	if err != nil { // Check for errors
+		fmt.Fprintf(w, err.Error()) // Log error
+	} else {
+		fmt.Fprintf(w, output) // Log success
+	}
 }
