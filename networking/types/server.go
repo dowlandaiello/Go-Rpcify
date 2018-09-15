@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/apaxa-go/eval"
+	"github.com/mitsukomegumi/Go-Rpcify/common"
 	"github.com/mitsukomegumi/Go-Rpcify/types"
 )
 
@@ -63,9 +64,10 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 
 func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 	args := eval.Args{
-		"fmt.Sprint":  eval.MakeDataRegularInterface(fmt.Sprint),
-		"fmt.Println": eval.MakeDataRegularInterface(fmt.Sprintln),
-		"Call":        eval.MakeTypeInterface(types.Call{}),
+		"fmt.Sprint":        eval.MakeDataRegularInterface(fmt.Sprint),
+		"fmt.Println":       eval.MakeDataRegularInterface(fmt.Sprintln),
+		"common.HelloWorld": eval.MakeDataRegularInterface(common.HelloWorld),
+		"Call":              eval.MakeTypeInterface(types.Call{}),
 	}
 
 	src := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
@@ -77,14 +79,13 @@ func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 	if err != nil { // Check for errors
 		fmt.Fprintf(w, err.Error()) // Log error
 	} else {
-		r, err := expr.EvalToInterface(args) // Why am I doing this?
+		response, err := expr.EvalToInterface(args) // Why am I doing this?
 
 		if err != nil {
 			fmt.Fprintf(w, err.Error()) // Log error
 		} else {
-			r, _ := json.MarshalIndent(r.(string), "", "  ") // Pretty print
-
-			fmt.Fprintf(w, "%s", string(r)) // Log output
+			fmt.Printf("{%v}", response)
+			fmt.Fprintf(w, "{%v}", response) // Log output
 		}
 	}
 }
