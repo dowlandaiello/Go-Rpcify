@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/apaxa-go/eval"
 	"github.com/mitsukomegumi/Go-Rpcify/types"
 )
 
@@ -50,12 +51,30 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 		stack, err := server.Environment.SearchStackEndpoints(endpoint) // Query stack
 
 		if err != nil { // Check for errors
-			fmt.Fprintf(w, err.Error()) // Log error
+			server.handleNewCall(w, r) // Handle new call
 		}
 
 		server.handleStack(stack, w, r) // Handle stack
 	} else {
 		server.handleCall(call, w, r) // Handle call
+	}
+}
+
+func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
+	src := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
+
+	expr, err := eval.ParseString(src, "") // Fetch expression
+
+	if err != nil { // Check for errors
+		fmt.Fprintf(w, err.Error()) // Log error
+	} else {
+		r, err := expr.EvalToInterface(nil) // Why am I doing this?
+
+		if err != nil {
+			fmt.Fprintf(w, err.Error()) // Log error
+		} else {
+			fmt.Fprintf(w, "%v %T", r, r) // Log output
+		}
 	}
 }
 
