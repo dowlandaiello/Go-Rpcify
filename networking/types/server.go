@@ -40,6 +40,8 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 
 // HandleRequest - attempt to handle request
 func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("-- SERVER -- found request %s\n\n", r.URL.Path) // Log request
+
 	endpoint := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
 
 	call, err := server.Environment.SearchCallEndpoints(endpoint) // Query call
@@ -58,21 +60,29 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) handleCall(call *types.Call, w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("running call %s\n", call.Endpoint) // Log running call
+
 	output, err := call.Run() // Run call
 
 	if err != nil { // Check for errors
-		fmt.Fprintf(w, err.Error()) // Log error
+		fmt.Println(err.Error() + "\n") // Log error
+		fmt.Fprintf(w, err.Error())     // Log error
 	} else {
-		fmt.Fprintf(w, output) // Log success
+		fmt.Println(output + "\n") // Log output
+		fmt.Fprintf(w, output)     // Log success
 	}
 }
 
 func (server *Server) handleStack(stack *types.Stack, w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("running stack %s\n", stack.Endpoint) // Log running call
+
 	output, err := stack.Run() // Run stack
 
 	if err != nil { // Check for errors
+		fmt.Println(err.Error())    // Log error
 		fmt.Fprintf(w, err.Error()) // Log error
 	} else {
+		fmt.Println(output)    // Log output
 		fmt.Fprintf(w, output) // Log success
 	}
 }

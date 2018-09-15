@@ -15,7 +15,7 @@ var (
 )
 
 func main() {
-	if !*upnpFlag {
+	if !*upnpFlag { // Check for noupnp flag
 		err := upnp.ForwardPort(8080) // Attempt to forward server port
 
 		if err != nil { // Check for errors
@@ -33,7 +33,7 @@ func main() {
 
 	err := server.StartServer() // Attempt to start server
 
-	if err != nil {
+	if err != nil { // Check for errors
 		panic(err) // Panic
 	}
 }
@@ -47,5 +47,5 @@ func helloWorldCall() *types.Call {
 		panic(err) // Panic
 	}
 
-	return call
+	return call // Return call
 }
