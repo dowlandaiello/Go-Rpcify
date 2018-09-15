@@ -16,6 +16,11 @@ const (
 
 /* BEGIN EXPORTED METHODS */
 
+// HelloWorld - a little hello go-rpcify call
+func HelloWorld() (string, error) {
+	return "Hello, world!", nil
+}
+
 /*
 	BEGIN CRYPTO METHODS:
 */
