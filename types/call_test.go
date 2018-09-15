@@ -24,7 +24,7 @@ func TestNewCall(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
-	t.Logf("initialized call %s successfully with endpoint %s", call.MethodHash, call.Endpoint) // Log success
+	t.Logf("initialized call %v successfully with endpoint %s", call, call.Endpoint) // Log success
 }
 
 // TestRunCall - test functionality of call run method
