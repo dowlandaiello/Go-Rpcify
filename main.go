@@ -29,6 +29,8 @@ func main() {
 
 	server.Environment.AddCall(call) // Add hello world call
 
+	fmt.Println("-- SERVER -- starting server...")
+
 	err := server.StartServer() // Attempt to start server
 
 	if err != nil {
@@ -38,6 +40,8 @@ func main() {
 
 func helloWorldCall() *types.Call {
 	call, err := types.NewCall(common.HelloWorld, "HelloWorld") // Initialize call
+
+	fmt.Printf("initialized call with endpoint %s\n", call.Endpoint) // Log call
 
 	if err != nil { // Check for errors
 		panic(err) // Panic

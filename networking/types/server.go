@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"strings"
 
 	"github.com/mitsukomegumi/Go-Rpcify/types"
 )
@@ -39,10 +40,12 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 
 // HandleRequest - attempt to handle request
 func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
-	call, err := server.Environment.SearchCallEndpoints(r.URL.Path[2:]) // Query call
+	endpoint := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
+
+	call, err := server.Environment.SearchCallEndpoints(endpoint) // Query call
 
 	if err != nil { // Check for errors
-		stack, err := server.Environment.SearchStackEndpoints(r.URL.Path[2:]) // Query stack
+		stack, err := server.Environment.SearchStackEndpoints(endpoint) // Query stack
 
 		if err != nil { // Check for errors
 			fmt.Fprintf(w, err.Error()) // Log error
