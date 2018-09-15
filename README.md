@@ -17,7 +17,7 @@ go get github.com/mitsukomegumi/Go-Rpcify
 Initialize an RPC Server:
 
 ```Go
-server := networkingTypes.NewServer("server") // Initialize server
+server := types.NewServer("server") // Initialize server
 ```
 
 Initialize a Call from a Method:
