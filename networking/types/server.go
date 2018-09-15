@@ -43,7 +43,7 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 
 // HandleRequest - attempt to handle request
 func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("\n-- SERVER -- found request %s\n\n", r.URL.Path) // Log request
+	//fmt.Printf("\n-- SERVER -- found request %s\n\n", r.URL.Path) // Log request
 
 	endpoint := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
 
@@ -71,7 +71,7 @@ func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 
 	src := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
 
-	fmt.Println("evaluating " + src) // Log evaluating
+	//fmt.Println("evaluating " + src) // Log evaluating
 
 	expr, err := eval.ParseString(src, "") // Fetch expression
 
@@ -85,13 +85,14 @@ func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 		} else {
 			formattedResponse, _ := json.MarshalIndent(response, "", "  ") // Pretty print
 
+			fmt.Printf("%T %s\n", response, string(formattedResponse))                   // Log output
 			fmt.Fprintf(w, "{"+"'"+"%T %s"+"'"+"}", response, string(formattedResponse)) // Log output
 		}
 	}
 }
 
 func (server *Server) handleCall(call *types.Call, w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("running call %s\n", call.Endpoint) // Log running call
+	//fmt.Printf("running call %s\n", call.Endpoint) // Log running call
 
 	output, err := call.Run() // Run call
 
@@ -101,13 +102,13 @@ func (server *Server) handleCall(call *types.Call, w http.ResponseWriter, r *htt
 	} else {
 		outputBytes, _ := json.MarshalIndent(output, "", "    ") // Pretty print
 
-		fmt.Println(string(outputBytes) + "\n")     // Log output
+		fmt.Println(output + "\n")                  // Log output
 		fmt.Fprintf(w, "{"+string(outputBytes)+"}") // Log success
 	}
 }
 
 func (server *Server) handleStack(stack *types.Stack, w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("running stack %s\n", stack.Endpoint) // Log running call
+	//fmt.Printf("running stack %s\n", stack.Endpoint) // Log running call
 
 	output, err := stack.Run() // Run stack
 
@@ -117,7 +118,7 @@ func (server *Server) handleStack(stack *types.Stack, w http.ResponseWriter, r *
 	} else {
 		outputBytes, _ := json.MarshalIndent(output, "", "    ") // Pretty print
 
-		fmt.Println(string(outputBytes) + "\n")     // Log output
+		fmt.Println(output + "\n")                  // Log output
 		fmt.Fprintf(w, "{"+string(outputBytes)+"}") // Log success
 	}
 }
