@@ -40,7 +40,7 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 
 // HandleRequest - attempt to handle request
 func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("-- SERVER -- found request %s\n\n", r.URL.Path) // Log request
+	fmt.Printf("\n-- SERVER -- found request %s\n\n", r.URL.Path) // Log request
 
 	endpoint := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
 
