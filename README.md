@@ -17,12 +17,20 @@ go get github.com/mitsukomegumi/Go-Rpcify
 Initialize an RPC Server:
 
 ```Go
-server := types.NewServer("server") // Initialize server
+import (
+    serverTypes github.com/mitsukomegumi/Go-Rpcify/networking/types
+)
+
+server := serverTypes.NewServer("server") // Initialize server
 ```
 
 Initialize a Call from a Method:
 
 ```Go
+import (
+    github.com/mitsukomegumi/Go-Rpcify/types
+)
+
 call, err := types.NewCall(method, "methodName") // Initialize call
 
 if err != nil { // Check for errors
