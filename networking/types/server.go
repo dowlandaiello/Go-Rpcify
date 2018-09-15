@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/apaxa-go/eval"
+	"github.com/mitsukomegumi/Go-Rpcify/common"
 	"github.com/mitsukomegumi/Go-Rpcify/types"
 )
 
@@ -63,8 +64,9 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 
 func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 	args := eval.Args{
-		"fmt.Println": eval.MakeDataRegularInterface(fmt.Sprint),
-		"Call":        eval.MakeTypeInterface(types.Call{}),
+		"common.HelloWorld": eval.MakeDataRegularInterface(common.HelloWorld),
+		"fmt.Println":       eval.MakeDataRegularInterface(fmt.Sprint),
+		"Call":              eval.MakeTypeInterface(types.Call{}),
 	}
 
 	src := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
@@ -81,7 +83,7 @@ func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Fprintf(w, err.Error()) // Log error
 		} else {
-			formattedResponse, _ := json.MarshalIndent(response.(string), "", "  ") // Pretty print
+			formattedResponse, _ := json.MarshalIndent(response, "", "  ") // Pretty print
 
 			fmt.Fprintf(w, "{"+"'"+"%T %s"+"'"+"}", response, string(formattedResponse)) // Log output
 		}
