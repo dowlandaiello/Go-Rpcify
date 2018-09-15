@@ -47,13 +47,13 @@ server.StartServer() // Start Server
 Run a Call via HTTP:
 
 ```HTTP
-http://localhost:8080/call/${callEndpoint}
+http://localhost:8080/call/$callEndpoint
 ```
 
 Run Go via HTTP:
 
 ```HTTP
-http://localhost:8080/call/${go code}
+http://localhost:8080/call/$goCode
 ```
 
     Example:
