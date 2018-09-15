@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -61,19 +62,29 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
+	args := eval.Args{
+		"fmt.Sprint":  eval.MakeDataRegularInterface(fmt.Sprint),
+		"fmt.Println": eval.MakeDataRegularInterface(fmt.Sprintln),
+		"Call":        eval.MakeTypeInterface(types.Call{}),
+	}
+
 	src := strings.Split(r.URL.Path, "/")[len(strings.Split(r.URL.Path, "/"))-1] // Split endpoint
+
+	fmt.Println("evaluating " + src) // Log evaluating
 
 	expr, err := eval.ParseString(src, "") // Fetch expression
 
 	if err != nil { // Check for errors
 		fmt.Fprintf(w, err.Error()) // Log error
 	} else {
-		r, err := expr.EvalToInterface(nil) // Why am I doing this?
+		r, err := expr.EvalToInterface(args) // Why am I doing this?
 
 		if err != nil {
 			fmt.Fprintf(w, err.Error()) // Log error
 		} else {
-			fmt.Fprintf(w, "%v %T", r, r) // Log output
+			r, _ := json.MarshalIndent(r.(string), "", "  ") // Pretty print
+
+			fmt.Fprintf(w, "%s", string(r)) // Log output
 		}
 	}
 }
@@ -87,8 +98,10 @@ func (server *Server) handleCall(call *types.Call, w http.ResponseWriter, r *htt
 		fmt.Println(err.Error() + "\n") // Log error
 		fmt.Fprintf(w, err.Error())     // Log error
 	} else {
-		fmt.Println(output + "\n") // Log output
-		fmt.Fprintf(w, output)     // Log success
+		outputBytes, _ := json.MarshalIndent(output, "", "    ") // Pretty print
+
+		fmt.Println(string(outputBytes) + "\n")     // Log output
+		fmt.Fprintf(w, "{"+string(outputBytes)+"}") // Log success
 	}
 }
 
@@ -101,7 +114,9 @@ func (server *Server) handleStack(stack *types.Stack, w http.ResponseWriter, r *
 		fmt.Println(err.Error())    // Log error
 		fmt.Fprintf(w, err.Error()) // Log error
 	} else {
-		fmt.Println(output)    // Log output
-		fmt.Fprintf(w, output) // Log success
+		outputBytes, _ := json.MarshalIndent(output, "", "    ") // Pretty print
+
+		fmt.Println(string(outputBytes) + "\n")     // Log output
+		fmt.Fprintf(w, "{"+string(outputBytes)+"}") // Log success
 	}
 }
