@@ -107,7 +107,7 @@ func TestSearchCallEndpoint(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
-	foundCall, err := env.SearchCallEndpoint(call.Endpoint) // Query for endpoint
+	foundCall, err := env.SearchCallEndpoints(call.Endpoint) // Query for endpoint
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error

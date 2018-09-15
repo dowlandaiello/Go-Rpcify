@@ -44,8 +44,8 @@ func (env *Environment) AddCall(call *Call) error {
 	return nil // No error occurred, return nil
 }
 
-// SearchCallEndpoint - query for endpoint in environment calls
-func (env *Environment) SearchCallEndpoint(endpoint string) (*Call, error) {
+// SearchCallEndpoints - query for endpoint in environment calls
+func (env *Environment) SearchCallEndpoints(endpoint string) (*Call, error) {
 	for x := 0; x != len(env.Calls); x++ { // Check for out of bounds
 		if env.Calls[x].Endpoint == endpoint { // Check for matching endpoint
 			return env.Calls[x], nil // Return call
