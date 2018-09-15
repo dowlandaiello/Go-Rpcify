@@ -12,6 +12,8 @@ go get github.com/mitsukomegumi/Go-Rpcify
 
 ## Usage
 
+### Setup
+
 Initialize an RPC Server:
 
 ```Go
@@ -39,3 +41,23 @@ Start a Server:
 ```Go
 server.StartServer() // Start Server
 ```
+
+### Server Interaction
+
+Run a Call via HTTP:
+
+```HTTP
+http://localhost:8080/call/${callEndpoint}
+```
+
+Run Go via HTTP:
+
+```HTTP
+http://localhost:8080/call/${go code}
+```
+
+    Example:
+
+    ```HTTP
+    http://localhost:8080/call/fmt.Println("example")
+    ```
