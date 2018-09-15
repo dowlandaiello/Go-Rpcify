@@ -53,9 +53,9 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil { // Check for errors
 			server.handleNewCall(w, r) // Handle new call
+		} else {
+			server.handleStack(stack, w, r) // Handle stack
 		}
-
-		server.handleStack(stack, w, r) // Handle stack
 	} else {
 		server.handleCall(call, w, r) // Handle call
 	}
@@ -63,8 +63,7 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 
 func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 	args := eval.Args{
-		"fmt.Sprint":  eval.MakeDataRegularInterface(fmt.Sprint),
-		"fmt.Println": eval.MakeDataRegularInterface(fmt.Sprintln),
+		"fmt.Println": eval.MakeDataRegularInterface(fmt.Sprint),
 		"Call":        eval.MakeTypeInterface(types.Call{}),
 	}
 
@@ -77,14 +76,14 @@ func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
 	if err != nil { // Check for errors
 		fmt.Fprintf(w, err.Error()) // Log error
 	} else {
-		r, err := expr.EvalToInterface(args) // Why am I doing this?
+		response, err := expr.EvalToInterface(args) // Why am I doing this?
 
 		if err != nil {
 			fmt.Fprintf(w, err.Error()) // Log error
 		} else {
-			r, _ := json.MarshalIndent(r.(string), "", "  ") // Pretty print
+			formattedResponse, _ := json.MarshalIndent(response.(string), "", "  ") // Pretty print
 
-			fmt.Fprintf(w, "%s", string(r)) // Log output
+			fmt.Fprintf(w, "{"+"'"+"%T %s"+"'"+"}", response, string(formattedResponse)) // Log output
 		}
 	}
 }
