@@ -29,5 +29,5 @@ func TestStartServer(t *testing.T) {
 
 	go server.StartServer() // Start server
 
-	t.Logf("started server %v", server)
+	t.Logf("started server %v", server) // Log success
 }

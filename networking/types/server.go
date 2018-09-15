@@ -39,10 +39,10 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 
 // HandleRequest - attempt to handle request
 func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
-	call, err := server.Environment.SearchCallEndpoints(r.URL.Path[1:]) // Query call
+	call, err := server.Environment.SearchCallEndpoints(r.URL.Path[2:]) // Query call
 
 	if err != nil { // Check for errors
-		stack, err := server.Environment.SearchStackEndpoints(r.URL.Path[1:]) // Query stack
+		stack, err := server.Environment.SearchStackEndpoints(r.URL.Path[2:]) // Query stack
 
 		if err != nil { // Check for errors
 			fmt.Fprintf(w, err.Error()) // Log error
