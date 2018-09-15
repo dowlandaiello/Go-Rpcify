@@ -11,12 +11,13 @@ import (
 )
 
 var (
-	upnpFlag = flag.Bool("noupnp", false, "launch Go-Rpcify without upnp")
+	upnpFlag = flag.Bool("noupnp", true, "launch Go-Rpcify without upnp")
 )
 
 func main() {
-	if !*upnpFlag { // Check for noupnp flag
-		err := upnp.ForwardPort(8080) // Attempt to forward server port
+	if *upnpFlag != true { // Check for noupnp flag
+		fmt.Println("configuring upnp...") // Log upnp
+		err := upnp.ForwardPort(8080)      // Attempt to forward server port
 
 		if err != nil { // Check for errors
 			fmt.Println(err.Error()) // Log error
