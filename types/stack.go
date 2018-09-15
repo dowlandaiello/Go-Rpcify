@@ -30,16 +30,18 @@ func (stack *Stack) AddCall(call *Call) error {
 }
 
 // Run - iterate through stack, run each call
-func (stack *Stack) Run() error {
+func (stack *Stack) Run() (string, error) {
+	output := "" // Init output
+
 	if reflect.ValueOf(stack).IsNil() { // Check for errors
-		return errors.New("nil stack") // Return found error
+		return "", errors.New("nil stack") // Return found error
 	}
 
 	for x := 0; x != len(stack.Calls); x++ { // Iterate through stack
-		stack.Calls[x].Run() // Run call
+		output, _ = stack.Calls[x].Run() // Run call
 	}
 
-	return nil // No error occurred, return nil
+	return output, nil // No error occurred, return nil
 }
 
 /* END EXPORTED METHODS */

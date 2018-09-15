@@ -73,14 +73,14 @@ func TestRunStack(t *testing.T) {
 		t.FailNow()           // Panic
 	}
 
-	err = stack.Run() // Attempt to run stack
+	output, err := stack.Run() // Attempt to run stack
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error
 		t.FailNow()           // Panic
 	}
 
-	t.Logf("ran stack %v successfully", stack) // Log success
+	t.Logf("ran stack %v successfully with output %s", stack, output) // Log success
 }
 
 /* END EXPORTED METHODS */

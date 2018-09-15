@@ -44,10 +44,14 @@ func NewCall(method func() (string, error), endpoint string) (*Call, error) {
 }
 
 // Run - attempt to run specified call
-func (call *Call) Run() error {
-	call.Method() // Run method
+func (call *Call) Run() (string, error) {
+	output, err := call.Method() // Run method
 
-	return nil // No error occurred, return nil
+	if err != nil { // Check for errors
+		return "", err // Return found error
+	}
+
+	return output, nil // No error occurred, return nil
 }
 
 /* END EXPORTED METHODS */

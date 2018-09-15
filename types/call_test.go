@@ -38,13 +38,13 @@ func TestRunCall(t *testing.T) {
 
 	t.Logf("initialized call %s successfully", call.MethodHash) // Log success
 
-	err = call.Run() // Attempt to run call
+	output, err := call.Run() // Attempt to run call
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error
 	}
 
-	t.Logf("ran call %s successfully", call.MethodHash) // Log success
+	t.Logf("ran call %s successfully. Encountered output: %s", call.MethodHash, output) // Log success
 }
 
 /* END EXPORTED METHODS */
