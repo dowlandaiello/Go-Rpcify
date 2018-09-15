@@ -26,6 +26,31 @@
   revision = "29b680b06c82d044ebea91bf3069038eb562df2a"
 
 [[projects]]
+  branch = "master"
+  digest = "1:1c132b7395a7e4ce1359ce1bf6e1b4e9562490d60b5fd1bfde3af4c63fe052c5"
+  name = "github.com/apaxa-go/eval"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "1d18b251d6795e462ef99e1cd2d0c88f64a0918b"
+
+[[projects]]
+  branch = "master"
+  digest = "1:7ebccb0531c344833d9b247fd76456336418ce732018bd9f58b929d2de8151a2"
+  name = "github.com/apaxa-go/helper"
+  packages = [
+    "goh/asth",
+    "goh/constanth",
+    "goh/tokenh",
+    "mathh",
+    "reflecth",
+    "strconvh",
+    "stringsh",
+    "unicodeh",
+  ]
+  pruneopts = "UT"
+  revision = "61d31b1c31c30c359f50b231e26927c91369061a"
+
+[[projects]]
   digest = "1:89e98f6335a3ca6d6ae179bb030d7d73326b809c3ba87e9a4b7dffd458ab85d7"
   name = "github.com/briandowns/spinner"
   packages = ["."]
@@ -92,7 +117,7 @@
   revision = "d0be0721c37eeb5299f245a996a483160fc36940"
 
 [[projects]]
-  digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
+  digest = "1:4392fcf42d5cf0e3ff78c96b2acf8223d49e4fdc53eb77c99d2f8dfe4680e006"
   name = "golang.org/x/text"
   packages = [
     "encoding",
@@ -107,11 +132,14 @@
     "encoding/unicode",
     "internal/gen",
     "internal/tag",
+    "internal/triegen",
+    "internal/ucd",
     "internal/utf8internal",
     "language",
     "runes",
     "transform",
     "unicode/cldr",
+    "unicode/norm",
   ]
   pruneopts = "UT"
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
@@ -122,6 +150,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/NebulousLabs/go-upnp",
+    "github.com/apaxa-go/eval",
     "github.com/briandowns/spinner",
     "golang.org/x/crypto/sha3",
   ]
