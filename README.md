@@ -58,6 +58,4 @@ http://localhost:8080/call/$goCode
 
     Example:
 
-    ```HTTP
     http://localhost:8080/call/fmt.Println("example")
-    ```
