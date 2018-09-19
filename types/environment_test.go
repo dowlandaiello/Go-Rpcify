@@ -29,7 +29,7 @@ func TestAddStack(t *testing.T) {
 		t.FailNow()                                     // Panic
 	}
 
-	call, err := NewCall(callTestMethod, "") // Init call
+	call, err := NewCall(callTestMethod, callTestMethod, "") // Init call
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error
@@ -66,7 +66,7 @@ func TestAddCall(t *testing.T) {
 
 	t.Logf("initialized new environment %v", env) // Log success
 
-	call, err := NewCall(callTestMethod, "") // Init call
+	call, err := NewCall(callTestMethod, callTestMethod, "") // Init call
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error
@@ -93,7 +93,7 @@ func TestSearchCallEndpoint(t *testing.T) {
 		t.FailNow()                                     // Panic
 	}
 
-	call, err := NewCall(callTestMethod, "") // Init call
+	call, err := NewCall(callTestMethod, callTestMethod, "") // Init call
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error
@@ -126,7 +126,7 @@ func TestSearchStackEndpoint(t *testing.T) {
 		t.FailNow()                                     // Panic
 	}
 
-	call, err := NewCall(callTestMethod, "") // Init call
+	call, err := NewCall(callTestMethod, callTestMethod, "") // Init call
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error

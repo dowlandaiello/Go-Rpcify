@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net"
 	"net/http"
 	"reflect"
 	"strings"
@@ -36,6 +37,14 @@ func (server *Server) StartServer() error { // TODO: finished server start metho
 
 	http.HandleFunc("/", server.HandleRequest) // Handle request
 
+	listener, err := net.Listen("tcp", ":8081") // Start RPC listener
+
+	if err != nil { // Check for errors
+		return err // Return found error
+	}
+
+	go http.Serve(listener, nil) // Start server
+
 	http.ListenAndServe(":8080", nil) // Serve requests
 
 	return nil // No error occurred, return nil
@@ -63,8 +72,10 @@ func (server *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) handleNewCall(w http.ResponseWriter, r *http.Request) {
+	console := new(common.Console) // Init console
+
 	args := eval.Args{
-		"common.HelloWorld": eval.MakeDataRegularInterface(common.HelloWorld),
+		"common.HelloWorld": eval.MakeDataRegularInterface(console.HelloWorld),
 		"fmt.Println":       eval.MakeDataRegularInterface(fmt.Sprint),
 		"Call":              eval.MakeTypeInterface(types.Call{}),
 	}

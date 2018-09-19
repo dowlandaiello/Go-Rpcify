@@ -3,6 +3,7 @@ package types
 import (
 	"errors"
 	"fmt"
+	"net/rpc"
 	"reflect"
 
 	"github.com/mitsukomegumi/Go-Rpcify/common"
@@ -19,7 +20,7 @@ type Call struct {
 /* BEGIN EXPORTED METHODS */
 
 // NewCall - initialize new instance of Call struct
-func NewCall(method func() (string, error), endpoint string) (*Call, error) {
+func NewCall(method func() (string, error), receiver interface{}, endpoint string) (*Call, error) {
 	if reflect.ValueOf(method).IsNil() { // Check for nil method
 		return &Call{}, errors.New("nil call") // Return error
 	}
@@ -39,6 +40,8 @@ func NewCall(method func() (string, error), endpoint string) (*Call, error) {
 	if call.Endpoint == "" { // Check for nil endpoint
 		call.Endpoint = common.RootCallEndpoint + "/" + call.MethodHash // Set endpoint
 	}
+
+	rpc.Register(receiver) // Register as rpc service
 
 	return &call, nil // Return initialized call instance
 }

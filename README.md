@@ -50,7 +50,43 @@ Start a Server:
 server.StartServer() // Start Server
 ```
 
+### Method Support
+
+In order to support the standard go net/rpc RPC server implementation, all call methods must
+
+1. Be of an exported type
+
+2. Be exported
+
+3. Have two arguments (an arguments list struct, and a response pointer)
+
+4. Have a return type of error
+
+5. Have a mirroring standalone method with no arguments, and a return type of string and error (response, and error)
+
 ### Server Interaction
+
+Connect to a Server via RPC:
+
+```RPC
+client, err := rpc.DialHTTP("tcp", "localhost" + ":8081") // Connect to server
+
+if err != nil { // Check for errors
+    panic(err) // Panic
+}
+```
+
+Run a Call via RPC:
+
+```RPC
+var reply int // Init reply buffer
+
+err = client.Call("Common.HelloWorld", &reply) // Call method
+
+if err != nil { // Check for errors
+    panic(err) // Panic
+}
+```
 
 Run a Call via HTTP:
 
