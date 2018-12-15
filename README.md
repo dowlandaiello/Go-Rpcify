@@ -7,7 +7,7 @@ A Go library for generating event-based RPC endpoints.
 Installation via Go Get:
 
 ```BASH
-go get github.com/mitsukomegumi/Go-Rpcify
+go get github.com/dowlandaiello/Go-Rpcify
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ Initialize an RPC Server:
 
 ```Go
 import (
-    serverTypes github.com/mitsukomegumi/Go-Rpcify/networking/types
+    serverTypes github.com/dowlandaiello/Go-Rpcify/networking/types
 )
 
 server := serverTypes.NewServer("server") // Initialize server
@@ -28,7 +28,7 @@ Initialize a Call from a Method:
 
 ```Go
 import (
-    github.com/mitsukomegumi/Go-Rpcify/types
+    github.com/dowlandaiello/Go-Rpcify/types
 )
 
 call, err := types.NewCall(method, "methodName") // Initialize call

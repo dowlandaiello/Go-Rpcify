@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	"github.com/apaxa-go/eval"
-	"github.com/mitsukomegumi/Go-Rpcify/common"
-	"github.com/mitsukomegumi/Go-Rpcify/types"
+	"github.com/dowlandaiello/Go-Rpcify/common"
+	"github.com/dowlandaiello/Go-Rpcify/types"
 )
 
 // Server - networking type used for rpc server

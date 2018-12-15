@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/mitsukomegumi/Go-Rpcify/common"
-	networkingTypes "github.com/mitsukomegumi/Go-Rpcify/networking/types"
-	"github.com/mitsukomegumi/Go-Rpcify/types"
-	"github.com/mitsukomegumi/Go-Rpcify/upnp"
+	"github.com/dowlandaiello/Go-Rpcify/common"
+	networkingTypes "github.com/dowlandaiello/Go-Rpcify/networking/types"
+	"github.com/dowlandaiello/Go-Rpcify/types"
+	"github.com/dowlandaiello/Go-Rpcify/upnp"
 )
 
 var (

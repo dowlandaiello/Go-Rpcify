@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/mitsukomegumi/Go-Rpcify/common"
+	"github.com/dowlandaiello/Go-Rpcify/common"
 )
 
 // Call - call to specified method
