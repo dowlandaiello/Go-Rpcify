@@ -21,6 +21,8 @@ func main() {
 
 		if err != nil { // Check for errors
 			fmt.Println(err.Error()) // Log error
+		} else {
+			upnp.ForwardPort(8081) // Attempt to forward RPC server port
 		}
 	}
 
@@ -40,7 +42,9 @@ func main() {
 }
 
 func helloWorldCall() *types.Call {
-	call, err := types.NewCall(common.HelloWorld, "HelloWorld") // Initialize call
+	console := new(common.Console) // Init console
+
+	call, err := types.NewCall(console.HelloHTTP, console, "HelloWorld") // Initialize call
 
 	fmt.Printf("initialized call with endpoint %s\n", call.Endpoint) // Log call
 

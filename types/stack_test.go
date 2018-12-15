@@ -31,7 +31,7 @@ func TestStackAddCall(t *testing.T) {
 
 	t.Logf("initialized stack %p successfully", stack) // Log success
 
-	call, err := NewCall(callTestMethod, "") // Init call
+	call, err := NewCall(callTestMethod, callTestMethod, "") // Init call
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error
@@ -57,7 +57,7 @@ func TestRunStack(t *testing.T) {
 		t.FailNow()                               // Panic
 	}
 
-	call, err := NewCall(callTestMethod, "") // Init call
+	call, err := NewCall(callTestMethod, callTestMethod, "") // Init call
 
 	if err != nil { // Check for errors
 		t.Errorf(err.Error()) // Log found error

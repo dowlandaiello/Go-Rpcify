@@ -14,11 +14,21 @@ const (
 	RootCallEndpoint = "/call"
 )
 
+// Console - type for logging ¯\_(ツ)_/¯
+type Console int // Log buffer
+
 /* BEGIN EXPORTED METHODS */
 
 // HelloWorld - a little hello go-rpcify call
-func HelloWorld() (string, error) {
-	return "Hello, world!", nil
+func (console *Console) HelloWorld(con *Console, reply *string) error {
+	*reply = "Hello, world!" // Set reply
+
+	return nil // No error occurred, return nil
+}
+
+// HelloHTTP - a little hello go-rpcify call
+func (console *Console) HelloHTTP() (string, error) {
+	return "Hello, world!", nil // Return reply
 }
 
 /*
